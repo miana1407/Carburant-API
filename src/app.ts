@@ -13,6 +13,8 @@ import stationsRouter from "./routes/stations";
 import pricesRouter from "./routes/prices";
 import vehiclesRouter from "./routes/vehicles";
 import { startCronJobs } from "./scheduler/cron";
+import { graphqlHandler } from './graphql';
+import { ruruHTML } from 'ruru/server';
 
 dotenv.config();
 
@@ -30,6 +32,14 @@ app.use("/api/cities",   citiesRouter);
 app.use("/api/stations", stationsRouter);
 app.use("/api/prices",   pricesRouter);
 app.use("/api/vehicles", vehiclesRouter);
+
+// ── GraphQL ─────────────
+app.all('/graphql', graphqlHandler);
+
+app.get('/graphiql', (_req, res) => {
+  res.type('html');
+  res.end(ruruHTML({ endpoint: '/graphql' }));
+});
 
 // ── Swagger ───────────────
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

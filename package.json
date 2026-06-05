@@ -4,6 +4,7 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "test": "vitest run",
     "build": "tsc",
     "start": "node dist/app.js",
     "import:cities": "ts-node src/scripts/importCities.ts",
@@ -19,6 +20,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "fast-xml-parser": "^4.3.5",
+    "graphql": "^16.14.1",
+    "graphql-http": "^1.22.4",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.0",
@@ -42,6 +45,7 @@
     "@types/swagger-ui-express": "^4.1.8",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "vitest": "^4.1.7"
   }
 }
