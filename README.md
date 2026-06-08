@@ -412,4 +412,4 @@ Projet TP DevOps - Module de gestion des carburants
 **API démarrée** ✅  
 - **REST** : http://localhost:3000/api
 - **Swagger** : http://localhost:3000/api/docs
-- **GraphQL** : http://localhost:3000/graphql
+- **GraphQL** : http://localhost:3000/graphiql
