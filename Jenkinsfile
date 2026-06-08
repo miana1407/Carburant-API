@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20-alpine'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
         GHCR_IMAGE   = "ghcr.io/miana1407/carburant-api"
@@ -10,27 +15,19 @@ pipeline {
     stages {
 
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
         stage('Install dependencies') {
-            steps {
-                sh 'npm ci'
-            }
+            steps { sh 'npm ci' }
         }
 
         stage('Tests') {
-            steps {
-                sh 'npm test'
-            }
+            steps { sh 'npm test' }
         }
 
         stage('Build TypeScript') {
-            steps {
-                sh 'npm run build'
-            }
+            steps { sh 'npm run build' }
         }
 
         stage('Docker Build') {
@@ -61,11 +58,7 @@ pipeline {
     }
 
     post {
-        success {
-            echo "Pipeline réussie — image publiée : ${GHCR_IMAGE}:${IMAGE_TAG}"
-        }
-        failure {
-            echo "Pipeline échouée"
-        }
+        success { echo "✅ Pipeline réussie — image publiée : ${GHCR_IMAGE}:${IMAGE_TAG}" }
+        failure { echo "❌ Pipeline échouée" }
     }
 }
