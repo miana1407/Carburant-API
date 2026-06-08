@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { searchCities, getCityByInsee } from "../controllers/cityController";
+import { searchCitiesHandler, getCityByInseeHandler } from "../controllers/cityController";
 
 const router = Router();
 
@@ -27,7 +27,7 @@ const router = Router();
  *       200:
  *         description: Liste des villes
  */
-router.get("/", searchCities);
+router.get("/", searchCitiesHandler);
 
 /**
  * @swagger
@@ -49,6 +49,6 @@ router.get("/", searchCities);
  *       404:
  *         description: Ville non trouvée
  */
-router.get("/:codeInsee", getCityByInsee);
+router.get("/:codeInsee", getCityByInseeHandler);
 
 export default router;

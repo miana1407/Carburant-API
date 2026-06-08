@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
-  getNationalStats,
-  getDepartementStats,
+  getNationalStatsHandler,
+  getDepartementStatsHandler,
 } from "../controllers/priceController";
 
 const router = Router();
@@ -43,7 +43,7 @@ const router = Router();
  *       200:
  *         description: Statistiques nationales (moyenne, min, max, écart-type)
  */
-router.get("/national", getNationalStats);
+router.get("/national", getNationalStatsHandler);
 
 /**
  * @swagger
@@ -83,6 +83,6 @@ router.get("/national", getNationalStats);
  *       404:
  *         description: Département non trouvé
  */
-router.get("/departement/:depCode", getDepartementStats);
+router.get("/departement/:depCode", getDepartementStatsHandler);
 
 export default router;

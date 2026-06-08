@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
-  getNearbyStations,
-  getStationById,
-  getStationPriceHistory,
+  getNearbyStationsHandler,
+  getStationByIdHandler,
+  getStationPriceHistoryHandler,
 } from "../controllers/stationController";
 
 const router = Router();
@@ -54,7 +54,7 @@ const router = Router();
  *       404:
  *         description: Ville non trouvée
  */
-router.get("/nearby", getNearbyStations);
+router.get("/nearby", getNearbyStationsHandler);
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ router.get("/nearby", getNearbyStations);
  *       404:
  *         description: Station non trouvée
  */
-router.get("/:id", getStationById);
+router.get("/:id", getStationByIdHandler);
 
 /**
  * @swagger
@@ -133,6 +133,6 @@ router.get("/:id", getStationById);
  *       404:
  *         description: Station non trouvée
  */
-router.get("/:id/prices", getStationPriceHistory);
+router.get("/:id/prices", getStationPriceHistoryHandler);
 
 export default router;

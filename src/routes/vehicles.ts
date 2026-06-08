@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
-  getUserVehicles,
-  createVehicle,
-  getVehicleById,
-  updateVehicle,
-  deleteVehicle,
-  addFuelLog,
-  getVehicleLogs,
-  getVehicleStats,
+  getUserVehiclesHandler,
+  createVehicleHandler,
+  getVehicleByIdHandler,
+  updateVehicleHandler,
+  deleteVehicleHandler,
+  addFuelLogHandler,
+  getVehicleLogsHandler,
+  getVehicleStatsHandler,
 } from "../controllers/vehicleController";
 import { authenticate } from "../middleware/auth";
 
@@ -35,7 +35,7 @@ router.use(authenticate);
  *       401:
  *         description: Non authentifié
  */
-router.get("/", getUserVehicles);
+router.get("/", getUserVehiclesHandler);
 
 /**
  * @swagger
@@ -72,7 +72,7 @@ router.get("/", getUserVehicles);
  *       401:
  *         description: Non authentifié
  */
-router.post("/", createVehicle);
+router.post("/", createVehicleHandler);
 
 /**
  * @swagger
@@ -95,7 +95,7 @@ router.post("/", createVehicle);
  *       404:
  *         description: Véhicule non trouvé
  */
-router.get("/:id", getVehicleById);
+router.get("/:id", getVehicleByIdHandler);
 
 /**
  * @swagger
@@ -131,7 +131,7 @@ router.get("/:id", getVehicleById);
  *       404:
  *         description: Véhicule non trouvé
  */
-router.put("/:id", updateVehicle);
+router.put("/:id", updateVehicleHandler);
 
 /**
  * @swagger
@@ -151,7 +151,7 @@ router.put("/:id", updateVehicle);
  *       404:
  *         description: Véhicule non trouvé
  */
-router.delete("/:id", deleteVehicle);
+router.delete("/:id", deleteVehicleHandler);
 
 /**
  * @swagger
@@ -181,7 +181,7 @@ router.delete("/:id", deleteVehicle);
  *       200:
  *         description: Liste des pleins
  */
-router.get("/:id/logs", getVehicleLogs);
+router.get("/:id/logs", getVehicleLogsHandler);
 
 /**
  * @swagger
@@ -223,7 +223,7 @@ router.get("/:id/logs", getVehicleLogs);
  *       201:
  *         description: Plein enregistré
  */
-router.post("/:id/logs", addFuelLog);
+router.post("/:id/logs", addFuelLogHandler);
 
 /**
  * @swagger
@@ -253,6 +253,6 @@ router.post("/:id/logs", addFuelLog);
  *       200:
  *         description: Consommation moyenne (L/100km), coût par km, total dépensé
  */
-router.get("/:id/stats", getVehicleStats);
+router.get("/:id/stats", getVehicleStatsHandler);
 
 export default router;

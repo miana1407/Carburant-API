@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        GHCR_IMAGE = "ghcr.io/miana1407/https://github.com/miana1407/Carburant-API.git"
-        IMAGE_TAG  = "${env.BUILD_NUMBER}"
-        GITHUB_TOKEN = credentials('github-token') // credential créé dans Jenkins
+        GHCR_IMAGE   = "ghcr.io/miana1407/carburant-api"
+        IMAGE_TAG    = "${env.BUILD_NUMBER}"
+        GITHUB_TOKEN = credentials('github-token')
     }
 
     stages {
@@ -42,7 +42,7 @@ pipeline {
 
         stage('Push vers GHCR') {
             steps {
-                sh "echo ${GITHUB_TOKEN} | docker login ghcr.io -u TON_USERNAME --password-stdin"
+                sh "echo ${GITHUB_TOKEN_PSW} | docker login ghcr.io -u ${GITHUB_TOKEN_USR} --password-stdin"
                 sh "docker push ${GHCR_IMAGE}:${IMAGE_TAG}"
                 sh "docker push ${GHCR_IMAGE}:latest"
             }
@@ -54,7 +54,7 @@ pipeline {
                     git config user.email "ci@jenkins"
                     git config user.name "Jenkins"
                     git tag -a v${IMAGE_TAG} -m "Build ${IMAGE_TAG}"
-                    git push https://${GITHUB_TOKEN}@github.com/TON_USERNAME/TON_REPO.git v${IMAGE_TAG}
+                    git push https://${GITHUB_TOKEN_PSW}@github.com/miana1407/Carburant-API.git v${IMAGE_TAG}
                 """
             }
         }
