@@ -259,7 +259,7 @@ Alternatives:
 
 ## 📡 API GraphQL
 
-Endpoint : `POST http://localhost:3000/graphql`
+Endpoint : `POST http://localhost:3000/graphiql`
 
 ### Exemple de queries
 
