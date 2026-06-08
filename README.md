@@ -407,11 +407,7 @@ Projet TP DevOps - Module de gestion des carburants
 
 ---
 
-## 👤 Contact
 
-Pour toute question : mariana@example.com
-
----
 
 **API démarrée** ✅  
 - **REST** : http://localhost:3000/api
