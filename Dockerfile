@@ -1,4 +1,6 @@
-FROM node:20-alpine
+# FROM node:20-alpine
+
+FROM node:version-qui-nexiste-pas
 
 WORKDIR /app
 
