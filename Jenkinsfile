@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    // Config de base : dépôt d'images et token
+    // Variables globales : on définit où envoyer l'image Docker et comment s'authentifier
     environment {
         GHCR_IMAGE   = "ghcr.io/miana1407/carburant-api"
         IMAGE_TAG    = "${env.BUILD_NUMBER}"
@@ -9,30 +9,30 @@ pipeline {
     }
 
     stages {
-        // Récupère le code source
+        // Clône le code du repo GitHub sur le serveur Jenkins
         stage('Checkout') {
             steps { checkout scm }
         }
-        // Installe les dépendances npm
+        // Télécharge toutes les bibliothèques npm nécessaires 
         stage('Install dependencies') {
             steps { sh 'npm ci' }
         }
-        // Lance les tests
+        // Exécute la suite de tests pour vérifier que tout fonctionne 
         stage('Tests') {
             steps { sh 'npm test' }
         }
-        // Compile TypeScript en JavaScript
+        // Compile le code TypeScript en JavaScript que les serveurs peuvent exécuter
         stage('Build TypeScript') {
             steps { sh 'npm run build' }
         }
-        // Crée l'image Docker
+        // Construit une image Docker avec le code compilé
         stage('Docker Build') {
             steps {
                 sh "docker build -t ${GHCR_IMAGE}:${IMAGE_TAG} ."
                 sh "docker tag ${GHCR_IMAGE}:${IMAGE_TAG} ${GHCR_IMAGE}:latest"
             }
         }
-        // Pousse l'image sur le registry GHCR
+        // Se connecte à GitHub Container Registry et envoie l'image Docker
         stage('Push vers GHCR') {
             steps {
                 sh "echo ${GITHUB_TOKEN_PSW} | docker login ghcr.io -u ${GITHUB_TOKEN_USR} --password-stdin"
@@ -40,7 +40,7 @@ pipeline {
                 sh "docker push ${GHCR_IMAGE}:latest"
             }
         }
-        // Crée un tag Git et le pousse
+        // Crée un tag dans Git pour marquer cette version et l'envoie à GitHub
         stage('Tag GitHub') {
             steps {
                 sh """
@@ -53,7 +53,7 @@ pipeline {
         }
     }
 
-    // Messages de fin selon le résultat
+    // Affiche un message de statut à la fin 
     post {
         success { echo "Pipeline réussie — image publiée : ${GHCR_IMAGE}:${IMAGE_TAG}" }
         failure { echo "Pipeline échouée" }
