@@ -399,14 +399,6 @@ Vérifier les logs de npm run import:cities
 Vérifier que les URLs d'import sont accessibles
 ```
 
----
-
-## 📝 Licence
-
-Projet TP DevOps - Module de gestion des carburants
-
----
-
 
 
 **API démarrée** ✅  
